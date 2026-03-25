@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -23,6 +24,9 @@ public class TrainConsistManagementApp {
 
     // UC6: Map bogie to capacity using HashMap (key-value mapping)
     private static HashMap<String, Integer> bogieCapacityMap;
+
+    // UC7: List of Bogie objects for sorting by capacity
+    private static List<Bogie> passengerBogies;
 
     public static void main(String[] args) {
         // UC1: Initialize Train and Display Consist Summary
@@ -204,6 +208,40 @@ public class TrainConsistManagementApp {
         System.out.println();
 
         System.out.println("UC6 bogie-capacity mapping completed...");
+        System.out.println();
+
+        // ========== UC7: Sort Bogies by Capacity ==========
+        System.out.println("=========================================");
+        System.out.println("UC7 - Sort Bogies by Capacity (Comparator)");
+        System.out.println("=========================================");
+        System.out.println();
+
+        // Initialize passenger bogies list
+        initializePassengerBogies();
+        System.out.println();
+
+        // Add bogie objects
+        addPassengerBogie(new Bogie("Sleeper", 72));
+        addPassengerBogie(new Bogie("AC Chair", 56));
+        addPassengerBogie(new Bogie("First Class", 26));
+        addPassengerBogie(new Bogie("General", 90));
+        System.out.println();
+
+        // Display before sorting
+        System.out.println("Before Sorting:");
+        displayPassengerBogiesList();
+        System.out.println();
+
+        // Sort bogies by capacity
+        sortBogiesByCapacity();
+        System.out.println();
+
+        // Display after sorting
+        System.out.println("After Sorting by Capacity:");
+        displayPassengerBogiesList();
+        System.out.println();
+
+        System.out.println("UC7 sorting completed...");
     }
 
     /**
@@ -212,6 +250,7 @@ public class TrainConsistManagementApp {
      * UC4: Initialize ordered consist with LinkedList
      * UC5: Initialize train formation with LinkedHashSet
      * UC6: Initialize bogie capacity map with HashMap
+     * UC7: Initialize passenger bogies list
      */
     private static void initializeTrain() {
         trainConsist = new ArrayList<>();
@@ -240,6 +279,14 @@ public class TrainConsistManagementApp {
      */
     private static void initializeBogieCapacityMap() {
         bogieCapacityMap = new HashMap<>();
+    }
+
+    /**
+     * UC7: Initialize the passenger bogies list
+     * Stores Bogie objects for sorting and processing
+     */
+    private static void initializePassengerBogies() {
+        passengerBogies = new ArrayList<>();
     }
 
     /**
@@ -390,5 +437,31 @@ public class TrainConsistManagementApp {
         for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
             System.out.println(entry.getKey() + " -> " + entry.getValue());
         }
+    }
+
+    /**
+     * UC7: Add a Bogie object to the passenger bogies list
+     * @param bogie The Bogie object to add
+     */
+    private static void addPassengerBogie(Bogie bogie) {
+        passengerBogies.add(bogie);
+    }
+
+    /**
+     * UC7: Display all passenger bogies with their capacities
+     */
+    private static void displayPassengerBogiesList() {
+        for (Bogie bogie : passengerBogies) {
+            System.out.println(bogie);
+        }
+    }
+
+    /**
+     * UC7: Sort passenger bogies by capacity using Comparator
+     * Uses Comparator.comparingInt() for custom sorting logic
+     */
+    private static void sortBogiesByCapacity() {
+        passengerBogies.sort(Comparator.comparingInt(Bogie::getCapacity));
+        System.out.println("Bogies sorted by capacity in ascending order...");
     }
 }
