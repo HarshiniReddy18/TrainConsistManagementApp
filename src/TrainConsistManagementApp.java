@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrainConsistManagementApp {
-
     // Bogie storage - dynamic list to hold train bogies
     private static List<String> trainConsist;
 
