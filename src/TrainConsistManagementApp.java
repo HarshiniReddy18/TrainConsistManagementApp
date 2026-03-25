@@ -1,10 +1,15 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class TrainConsistManagementApp {
 
-    // Bogie storage - dynamic list to hold train bogies
+    // UC1 & UC2: Bogie storage using ArrayList (maintains insertion order)
     private static List<String> trainConsist;
+
+    // UC3: Unique bogie IDs using HashSet (automatically handles duplicates)
+    private static Set<String> uniqueBogieIds;
 
     public static void main(String[] args) {
         // UC1: Initialize Train and Display Consist Summary
@@ -61,6 +66,31 @@ public class TrainConsistManagementApp {
         System.out.println();
 
         System.out.println("UC2 operations completed successfully...");
+        System.out.println();
+
+        // ========== UC3: Track Unique Bogie IDs ==========
+        System.out.println("=========================================");
+        System.out.println("UC3 - Track Unique Bogie IDs");
+        System.out.println("=========================================");
+        System.out.println();
+
+        // Add bogie IDs (with duplicates)
+        addBogieId("BG106");
+        addBogieId("BG103");
+        addBogieId("BG102");
+        addBogieId("BG103");  // Duplicate - will be ignored by HashSet
+        System.out.println();
+
+        // Display unique bogie IDs
+        System.out.println("Bogie IDs After Insertion:");
+        displayUniqueBogieIds();
+        System.out.println();
+
+        System.out.println("Note:");
+        System.out.println("Duplicates are automatically ignored by HashSet.");
+        System.out.println();
+
+        System.out.println("UC3 uniqueness validation completed...");
     }
 
     /**
@@ -69,6 +99,7 @@ public class TrainConsistManagementApp {
      */
     private static void initializeTrain() {
         trainConsist = new ArrayList<>();
+        uniqueBogieIds = new HashSet<>();
         System.out.println("Train initialized successfully...");
     }
 
@@ -117,5 +148,24 @@ public class TrainConsistManagementApp {
      */
     private static void displayPassengerBogies() {
         System.out.println("Passenger Bogies : " + trainConsist);
+    }
+
+    /**
+     * UC3: Add a bogie ID to the unique set
+     * Duplicates are automatically ignored by HashSet
+     * @param bogieId The unique bogie ID to add
+     */
+    private static void addBogieId(String bogieId) {
+        uniqueBogieIds.add(bogieId);
+        System.out.println("Bogie ID '" + bogieId + "' added...");
+    }
+
+    /**
+     * UC3: Display all unique bogie IDs
+     * HashSet automatically handles uniqueness
+     */
+    private static void displayUniqueBogieIds() {
+        System.out.println("Bogie IDs After Insertion:");
+        System.out.println(uniqueBogieIds);
     }
 }
