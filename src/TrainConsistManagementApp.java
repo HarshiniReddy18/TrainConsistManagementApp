@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class TrainConsistManagementApp {
@@ -18,6 +20,9 @@ public class TrainConsistManagementApp {
 
     // UC5: Preserve insertion order with uniqueness using LinkedHashSet
     private static LinkedHashSet<String> trainFormation;
+
+    // UC6: Map bogie to capacity using HashMap (key-value mapping)
+    private static HashMap<String, Integer> bogieCapacityMap;
 
     public static void main(String[] args) {
         // UC1: Initialize Train and Display Consist Summary
@@ -174,13 +179,39 @@ public class TrainConsistManagementApp {
         System.out.println();
 
         System.out.println("UC5 formation setup completed...");
+        System.out.println();
+
+        // ========== UC6: Map Bogie to Capacity ==========
+        System.out.println("=========================================");
+        System.out.println("UC6 - Map Bogie to Capacity (HashMap)");
+        System.out.println("=========================================");
+        System.out.println();
+
+        // Initialize bogie capacity map
+        initializeBogieCapacityMap();
+        System.out.println();
+
+        // Add bogie-capacity mappings
+        mapBogieToCapacity("First Class", 26);
+        mapBogieToCapacity("Cargo", 120);
+        mapBogieToCapacity("Sleeper", 72);
+        mapBogieToCapacity("AC Chair", 56);
+        System.out.println();
+
+        // Display bogie capacity details
+        System.out.println("Bogie Capacity Details:");
+        displayBogieCapacityDetails();
+        System.out.println();
+
+        System.out.println("UC6 bogie-capacity mapping completed...");
     }
 
     /**
-     * UC1: Initialize the train consist with an empty ArrayList
+     * UC1: Initialize all collections
      * UC3: Initialize unique bogie IDs with HashSet
      * UC4: Initialize ordered consist with LinkedList
      * UC5: Initialize train formation with LinkedHashSet
+     * UC6: Initialize bogie capacity map with HashMap
      */
     private static void initializeTrain() {
         trainConsist = new ArrayList<>();
@@ -201,6 +232,14 @@ public class TrainConsistManagementApp {
      */
     private static void initializeTrainFormation() {
         trainFormation = new LinkedHashSet<>();
+    }
+
+    /**
+     * UC6: Initialize the bogie capacity map using HashMap
+     * Maps bogie names (keys) to their capacities (values)
+     */
+    private static void initializeBogieCapacityMap() {
+        bogieCapacityMap = new HashMap<>();
     }
 
     /**
@@ -330,5 +369,26 @@ public class TrainConsistManagementApp {
      */
     private static void displayTrainFormation() {
         System.out.println(trainFormation);
+    }
+
+    /**
+     * UC6: Map a bogie to its capacity
+     * Uses HashMap to associate bogie name (key) with capacity (value)
+     * @param bogieName The name of the bogie
+     * @param capacity The seating/load capacity of the bogie
+     */
+    private static void mapBogieToCapacity(String bogieName, int capacity) {
+        bogieCapacityMap.put(bogieName, capacity);
+        System.out.println("Bogie '" + bogieName + "' mapped to capacity " + capacity + "...");
+    }
+
+    /**
+     * UC6: Display all bogie capacity details
+     * Iterates through HashMap entries and displays each bogie-capacity pair
+     */
+    private static void displayBogieCapacityDetails() {
+        for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
     }
 }
