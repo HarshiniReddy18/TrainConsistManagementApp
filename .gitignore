@@ -1,0 +1,13 @@
+# .gitignore for Java/IntelliJ projects
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+/.idea/
+/.classpath
+/.project
+/.settings/
+/.gradle/
+/build/
+/target/
