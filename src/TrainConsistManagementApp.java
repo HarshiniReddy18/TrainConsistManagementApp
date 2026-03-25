@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -10,6 +11,9 @@ public class TrainConsistManagementApp {
 
     // UC3: Unique bogie IDs using HashSet (automatically handles duplicates)
     private static Set<String> uniqueBogieIds;
+
+    // UC4: Ordered bogie consist using LinkedList (maintains sequence)
+    private static LinkedList<String> orderedBogieConsist;
 
     public static void main(String[] args) {
         // UC1: Initialize Train and Display Consist Summary
@@ -91,16 +95,69 @@ public class TrainConsistManagementApp {
         System.out.println();
 
         System.out.println("UC3 uniqueness validation completed...");
+        System.out.println();
+
+        // ========== UC4: Maintain Ordered Bogie Consist ==========
+        System.out.println("=========================================");
+        System.out.println("UC4 - Maintain Ordered Bogie Consist");
+        System.out.println("=========================================");
+        System.out.println();
+
+        // Initialize ordered consist
+        initializeOrderedConsist();
+        System.out.println();
+
+        // Add bogies in sequence
+        addBogieToConsist("Engine");
+        addBogieToConsist("Sleeper");
+        addBogieToConsist("AC");
+        addBogieToConsist("Cargo");
+        addBogieToConsist("Guard");
+        System.out.println();
+
+        // Display initial ordered consist
+        System.out.println("Initial Train Consist:");
+        displayOrderedConsist();
+        System.out.println();
+
+        // Insert a pantry car at position 2
+        insertBogieAtPosition(2, "Pantry Car");
+        System.out.println();
+
+        // Display after insertion
+        System.out.println("After Inserting 'Pantry Car' at position 2:");
+        displayOrderedConsist();
+        System.out.println();
+
+        // Remove first and last bogie
+        removeFirstBogie();
+        removeLastBogie();
+        System.out.println();
+
+        // Display final consist
+        System.out.println("After Removing First and Last Bogie:");
+        displayOrderedConsist();
+        System.out.println();
+
+        System.out.println("UC4 ordered consist operations completed...");
     }
 
     /**
      * UC1: Initialize the train consist with an empty ArrayList
-     * This creates dynamic storage for bogies
+     * UC3: Initialize unique bogie IDs with HashSet
+     * UC4: Initialize ordered consist with LinkedList
      */
     private static void initializeTrain() {
         trainConsist = new ArrayList<>();
         uniqueBogieIds = new HashSet<>();
         System.out.println("Train initialized successfully...");
+    }
+
+    /**
+     * UC4: Initialize the ordered bogie consist using LinkedList
+     */
+    private static void initializeOrderedConsist() {
+        orderedBogieConsist = new LinkedList<>();
     }
 
     /**
@@ -167,5 +224,50 @@ public class TrainConsistManagementApp {
     private static void displayUniqueBogieIds() {
         System.out.println("Bogie IDs After Insertion:");
         System.out.println(uniqueBogieIds);
+    }
+
+    /**
+     * UC4: Add a bogie to the ordered consist (at the end)
+     * @param bogie The bogie to add
+     */
+    private static void addBogieToConsist(String bogie) {
+        orderedBogieConsist.addLast(bogie);
+    }
+
+    /**
+     * UC4: Insert a bogie at a specific position
+     * @param index The position to insert at
+     * @param bogie The bogie to insert
+     */
+    private static void insertBogieAtPosition(int index, String bogie) {
+        orderedBogieConsist.add(index, bogie);
+        System.out.println("Bogie '" + bogie + "' inserted at position " + index + "...");
+    }
+
+    /**
+     * UC4: Remove the first bogie from the consist
+     */
+    private static void removeFirstBogie() {
+        if (!orderedBogieConsist.isEmpty()) {
+            String removed = orderedBogieConsist.removeFirst();
+            System.out.println("First bogie '" + removed + "' removed...");
+        }
+    }
+
+    /**
+     * UC4: Remove the last bogie from the consist
+     */
+    private static void removeLastBogie() {
+        if (!orderedBogieConsist.isEmpty()) {
+            String removed = orderedBogieConsist.removeLast();
+            System.out.println("Last bogie '" + removed + "' removed...");
+        }
+    }
+
+    /**
+     * UC4: Display the ordered train consist
+     */
+    private static void displayOrderedConsist() {
+        System.out.println(orderedBogieConsist);
     }
 }
