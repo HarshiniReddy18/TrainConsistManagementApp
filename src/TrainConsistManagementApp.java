@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -14,6 +15,9 @@ public class TrainConsistManagementApp {
 
     // UC4: Ordered bogie consist using LinkedList (maintains sequence)
     private static LinkedList<String> orderedBogieConsist;
+
+    // UC5: Preserve insertion order with uniqueness using LinkedHashSet
+    private static LinkedHashSet<String> trainFormation;
 
     public static void main(String[] args) {
         // UC1: Initialize Train and Display Consist Summary
@@ -140,12 +144,43 @@ public class TrainConsistManagementApp {
         System.out.println();
 
         System.out.println("UC4 ordered consist operations completed...");
+        System.out.println();
+
+        // ========== UC5: Preserve Insertion Order with Uniqueness ==========
+        System.out.println("=========================================");
+        System.out.println("UC5 - Preserve Insertion Order of Bogies");
+        System.out.println("=========================================");
+        System.out.println();
+
+        // Initialize train formation
+        initializeTrainFormation();
+        System.out.println();
+
+        // Attach bogies to the formation
+        attachBogieToFormation("Engine");
+        attachBogieToFormation("Sleeper");
+        attachBogieToFormation("Cargo");
+        attachBogieToFormation("Guard");
+        attachBogieToFormation("Sleeper");  // Duplicate attempt - will be ignored
+        System.out.println();
+
+        // Display final train formation
+        System.out.println("Final Train Formation:");
+        displayTrainFormation();
+        System.out.println();
+
+        System.out.println("Note:");
+        System.out.println("LinkedHashSet preserves insertion order and removes duplicates automatically.");
+        System.out.println();
+
+        System.out.println("UC5 formation setup completed...");
     }
 
     /**
      * UC1: Initialize the train consist with an empty ArrayList
      * UC3: Initialize unique bogie IDs with HashSet
      * UC4: Initialize ordered consist with LinkedList
+     * UC5: Initialize train formation with LinkedHashSet
      */
     private static void initializeTrain() {
         trainConsist = new ArrayList<>();
@@ -158,6 +193,14 @@ public class TrainConsistManagementApp {
      */
     private static void initializeOrderedConsist() {
         orderedBogieConsist = new LinkedList<>();
+    }
+
+    /**
+     * UC5: Initialize the train formation using LinkedHashSet
+     * Maintains insertion order and ensures uniqueness
+     */
+    private static void initializeTrainFormation() {
+        trainFormation = new LinkedHashSet<>();
     }
 
     /**
@@ -269,5 +312,23 @@ public class TrainConsistManagementApp {
      */
     private static void displayOrderedConsist() {
         System.out.println(orderedBogieConsist);
+    }
+
+    /**
+     * UC5: Attach a bogie to the train formation
+     * LinkedHashSet automatically handles uniqueness and maintains insertion order
+     * @param bogie The bogie to attach
+     */
+    private static void attachBogieToFormation(String bogie) {
+        trainFormation.add(bogie);
+        System.out.println("Bogie '" + bogie + "' attached to formation...");
+    }
+
+    /**
+     * UC5: Display the final train formation
+     * Shows bogies in insertion order with no duplicates
+     */
+    private static void displayTrainFormation() {
+        System.out.println(trainFormation);
     }
 }
